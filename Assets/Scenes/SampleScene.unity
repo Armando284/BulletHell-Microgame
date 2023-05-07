@@ -756,7 +756,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1262868727}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b414e4a6f5ad548ef8a286d6e31a5f1e, type: 3}
+  m_Script: {fileID: 11500000, guid: 2299c9974b89d40c19990d41a1bac166, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1473335990
@@ -1252,7 +1252,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 306318814373065088, guid: d607c8a729b1b49158f3225916def706, type: 3}
       propertyPath: orthographic size
-      value: 10
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 2158996360686239615, guid: d607c8a729b1b49158f3225916def706, type: 3}
       propertyPath: m_DeadZoneWidth
@@ -1282,13 +1282,17 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -10
       objectReference: {fileID: 0}
+    - target: {fileID: 3394596423690853278, guid: d607c8a729b1b49158f3225916def706, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7395248111027209903, guid: d607c8a729b1b49158f3225916def706, type: 3}
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 341622861}
     - target: {fileID: 7395248111027209903, guid: d607c8a729b1b49158f3225916def706, type: 3}
       propertyPath: m_Lens.OrthographicSize
-      value: 10
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 7507101681883863236, guid: d607c8a729b1b49158f3225916def706, type: 3}
       propertyPath: m_IsTrigger
