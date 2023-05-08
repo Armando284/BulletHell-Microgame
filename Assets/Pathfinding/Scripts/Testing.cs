@@ -26,19 +26,19 @@ public class Testing : MonoBehaviour
 
     private void Start()
     {
-        pathfinding = new Pathfinding(10, 10, Vector3.zero);
+        pathfinding = new Pathfinding(25, 25, Vector3.zero);
 
-        pathfinding = new Pathfinding(10, 10, new Vector3(120, 0, 0));
+        //pathfinding = new Pathfinding(10, 10, new Vector3(120, 0, 0));
 
-        pathfinding = new Pathfinding(10, 10, new Vector3(-120, 0, 0));
+        //pathfinding = new Pathfinding(10, 10, new Vector3(-120, 0, 0));
 
-        pathfinding = new Pathfinding(10, 10, new Vector3(0, 120, 0));
-        pathfinding = new Pathfinding(10, 10, new Vector3(120, 120, 0));
-        pathfinding = new Pathfinding(10, 10, new Vector3(-120, 120, 0));
+        //pathfinding = new Pathfinding(10, 10, new Vector3(0, 120, 0));
+        //pathfinding = new Pathfinding(10, 10, new Vector3(120, 120, 0));
+        //pathfinding = new Pathfinding(10, 10, new Vector3(-120, 120, 0));
 
-        pathfinding = new Pathfinding(10, 10, new Vector3(0, -120, 0));
-        pathfinding = new Pathfinding(10, 10, new Vector3(120, -120, 0));
-        pathfinding = new Pathfinding(10, 10, new Vector3(-120, -120, 0));
+        //pathfinding = new Pathfinding(10, 10, new Vector3(0, -120, 0));
+        //pathfinding = new Pathfinding(10, 10, new Vector3(120, -120, 0));
+        //pathfinding = new Pathfinding(10, 10, new Vector3(-120, -120, 0));
 
         //pathfindingDebugStepVisual.Setup(pathfinding.GetGrid());
         //pathfindingVisual.SetGrid(pathfinding.GetGrid());

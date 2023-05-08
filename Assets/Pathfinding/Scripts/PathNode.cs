@@ -13,6 +13,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PathNode
 {
@@ -76,5 +77,7 @@ public class PathNode
             spawnObject = null;
         }
         spawnObject = MapCreator.Instance.CreateSpawnNode(grid.GetWorldPosition(x, y) + new Vector3(grid.GetCellSize(), grid.GetCellSize()) * .5f, spawnType, grid.GetCellSize());
+        SortingGroup group = spawnObject.AddComponent<SortingGroup>();
+        group.sortingOrder = grid.GetHeight() - y;
     }
 }
