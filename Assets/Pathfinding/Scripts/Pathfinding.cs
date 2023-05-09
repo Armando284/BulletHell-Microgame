@@ -32,6 +32,7 @@ public class Pathfinding
         Instance = this;
         grid = new Grid<PathNode>(width, height, 10f, position, (Grid<PathNode> g, int x, int y) => new PathNode(g, x, y));
 
+        #region LevelCreation
         for (int x = 0; x < grid.GetWidth(); x++)
         {
             for (int y = 0; y < grid.GetHeight(); y++)
@@ -106,7 +107,7 @@ public class Pathfinding
                 if (x == 0 || x == grid.GetWidth() - 1 || y == 0 || y == grid.GetHeight() - 1)
                 {
                     node.SetIsWalkable(false);
-                    node.SetSpawn(SpawnObjectType.Wall);
+                    node.SetSpawn(EnvironmentNodeType.Wall);
                 }
                 else
                 {
@@ -121,9 +122,20 @@ public class Pathfinding
                             node.SetSpawn(current.environmentTypes[spawnType]);
                         }
                     }
+
+                    // If node is not wall it can be an enemy spawner
+                    EnemySpawner.Instance.spawnPoints.Add(grid.GetWorldPosition(x, y) + new Vector3(grid.GetCellSize(), grid.GetCellSize()) * .5f);
                 }
             }
         }
+        #endregion
+
+        #region EnemySpawn FirstWave
+
+        EnemySpawner.Instance.enemyScale = grid.GetCellSize();
+        EnemySpawner.Instance.SpawnWave();
+
+        #endregion
     }
 
     public Grid<PathNode> GetGrid()
@@ -181,8 +193,8 @@ public class Pathfinding
         startNode.hCost = CalculateDistanceCost(startNode, endNode);
         startNode.CalculateFCost();
 
-        PathfindingDebugStepVisual.Instance.ClearSnapshots();
-        PathfindingDebugStepVisual.Instance.TakeSnapshot(grid, startNode, openList, closedList);
+        //PathfindingDebugStepVisual.Instance.ClearSnapshots();
+        //PathfindingDebugStepVisual.Instance.TakeSnapshot(grid, startNode, openList, closedList);
 
         while (openList.Count > 0)
         {
@@ -190,8 +202,8 @@ public class Pathfinding
             if (currentNode == endNode)
             {
                 // Reached final node
-                PathfindingDebugStepVisual.Instance.TakeSnapshot(grid, currentNode, openList, closedList);
-                PathfindingDebugStepVisual.Instance.TakeSnapshotFinalPath(grid, CalculatePath(endNode));
+                //      PathfindingDebugStepVisual.Instance.TakeSnapshot(grid, currentNode, openList, closedList);
+                //    PathfindingDebugStepVisual.Instance.TakeSnapshotFinalPath(grid, CalculatePath(endNode));
                 return CalculatePath(endNode);
             }
 
@@ -220,7 +232,7 @@ public class Pathfinding
                         openList.Add(neighbourNode);
                     }
                 }
-                PathfindingDebugStepVisual.Instance.TakeSnapshot(grid, currentNode, openList, closedList);
+                //PathfindingDebugStepVisual.Instance.TakeSnapshot(grid, currentNode, openList, closedList);
             }
         }
 

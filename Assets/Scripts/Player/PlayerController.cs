@@ -44,4 +44,12 @@ public class PlayerController : MonoBehaviour
             return;
         movement = moveVector;
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            collision.gameObject.GetComponent<EnemyController>().KillEnemy();
+        }
+    }
 }

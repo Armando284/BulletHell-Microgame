@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class SpawnNode
+public class EnvironmentNode
 {
-    public SpawnObjectType type;
+    public EnvironmentNodeType type;
     public GameObject node;
 }
 

@@ -7,7 +7,7 @@ public class FloorNode
 {
     public FloorNodeType type;
     public List<FloorNodeType> neighboorTypes;
-    public List<SpawnObjectType> environmentTypes;
+    public List<EnvironmentNodeType> environmentTypes;
     public GameObject node;
 }
 

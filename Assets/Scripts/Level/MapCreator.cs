@@ -16,10 +16,10 @@ public class MapCreator : MonoBehaviour
     [Header("Floor nodes")]
     public List<FloorNode> floorNodes;
     [Header("Object nodes")]
-    public List<SpawnNode> spawnNodes;
+    public List<EnvironmentNode> spawnNodes;
     [Header("Level layers")]
-    [SerializeField] private Transform ground;
-    [SerializeField] private Transform interactable;
+    public Transform ground;
+    public Transform interactable;
 
     // Start is called before the first frame update
     void Start()
@@ -49,9 +49,9 @@ public class MapCreator : MonoBehaviour
         return CreateNode(position, node.node, ground, Vector3.one * cellSize);
     }
 
-    public GameObject CreateSpawnNode(Vector3 position, SpawnObjectType nodeType, float cellSize)
+    public GameObject CreateSpawnNode(Vector3 position, EnvironmentNodeType nodeType, float cellSize)
     {
-        SpawnNode node = spawnNodes.Find((SpawnNode obj) => obj.type == nodeType);
+        EnvironmentNode node = spawnNodes.Find((EnvironmentNode obj) => obj.type == nodeType);
         if (node == null)
             return null;
         return CreateNode(position, node.node, interactable, Vector3.one * cellSize);
@@ -65,4 +65,4 @@ public class MapCreator : MonoBehaviour
 
 public enum FloorNodeType { Grass, Sand, Water, Forest }
 
-public enum SpawnObjectType { None, Wall, Tree, BigTree }
+public enum EnvironmentNodeType { None, Wall, Tree, BigTree }

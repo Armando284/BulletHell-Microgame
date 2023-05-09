@@ -23,7 +23,7 @@ public class PathNode
     public int y;
     public FloorNodeType floorType;
     public GameObject floorObject;
-    private SpawnObjectType spawnType;
+    private EnvironmentNodeType spawnType;
     public GameObject spawnObject;
 
     public int gCost;
@@ -68,7 +68,7 @@ public class PathNode
         floorObject = MapCreator.Instance.CreateFloorNode(grid.GetWorldPosition(x, y) + new Vector3(grid.GetCellSize(), grid.GetCellSize()) * .5f, floorType, grid.GetCellSize());
     }
 
-    public void SetSpawn(SpawnObjectType type)
+    public void SetSpawn(EnvironmentNodeType type)
     {
         spawnType = type;
         if (spawnObject != null)
