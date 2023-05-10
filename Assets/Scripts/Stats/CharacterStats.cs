@@ -14,13 +14,15 @@ public class CharacterStats : MonoBehaviour
     public Stat speed;
     public Stat damage;
     public Stat armor;
+    public float currentArmor;
+    [SerializeField] private EnergyBar armorBar;
 
     [Space]
     public bool isDead = false;
     public bool isInvincible = false;
     public float invincibleOnHitTime = 1f;
     public bool canMove = true;
-
+    public bool isHurt = false;
 
     public Animator animator;
     private Rigidbody2D rb;
@@ -34,12 +36,14 @@ public class CharacterStats : MonoBehaviour
     [SerializeField] private Color hurtColor;
     [SerializeField] private GameObject[] dropItems;
 
-    private void Awake()
+    private void Start()
     {
         SetHealth();
         currentHealth = health.GetValue();
         SetEnergy();
         currentEnergy = energy.GetValue();
+        SetArmor();
+        currentArmor = armor.GetValue();
         animator = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody2D>();
         renderers = GetComponentsInChildren<SpriteRenderer>();
@@ -88,7 +92,7 @@ public class CharacterStats : MonoBehaviour
 
     public void SetCurrentEnergy(float currentEnergy)
     {
-        this.currentEnergy = Mathf.Clamp(currentEnergy, 0, health.GetValue());
+        this.currentEnergy = Mathf.Clamp(currentEnergy, 0, energy.GetValue());
         if (energyBar != null)
             energyBar.SetEnergy(this.currentEnergy);
         // Trigger callback
@@ -96,7 +100,29 @@ public class CharacterStats : MonoBehaviour
         //    onStatChangedCallback.Invoke();
     }
 
-    public bool HasMaxEnergy() => energy.GetValue() == currentEnergy;
+    public void SetArmor(float maxArmor = 0f)
+    {
+        //if (maxEnergy != 0f)
+        //{
+        //    energy.SetValue(maxEnergy);
+        //}
+        if (armorBar != null)
+            armorBar.SetMaxEnergy(armor.GetValue());
+        // Trigger callback
+        if (onStatChangedCallback != null)
+            onStatChangedCallback.Invoke();
+    }
+
+    public void SetCurrentArmor(float currentArmor)
+    {
+        this.currentArmor = Mathf.Clamp(currentArmor, 0, armor.GetValue());
+        if (armorBar != null)
+            armorBar.SetEnergy(this.currentArmor);
+    }
+
+    public bool HasMaxEnergy() => currentEnergy == energy.GetValue();
+
+    public bool HasMaxArmor() => currentArmor == armor.GetValue();
 
     public void ApplyCure(float amount)
     {
@@ -109,10 +135,12 @@ public class CharacterStats : MonoBehaviour
         if (isInvincible)
             return;
 
+        isHurt = true;
         float damage = data.damage;
-        damage -= armor.GetValue();
+        float armorDamage = damage;
+        damage -= currentArmor;
         damage = Mathf.Clamp(damage, 0, float.MaxValue);
-
+        SetCurrentArmor(Mathf.Clamp((currentArmor - armorDamage), 0, armor.GetValue()));
         Vector3 position = data.position;
         SetCurrentHealth(currentHealth - damage);
 
@@ -134,6 +162,11 @@ public class CharacterStats : MonoBehaviour
         StartCoroutine(MakeInvincible(invincibleOnHitTime));
     }
 
+    public void RecoverArmor(float armorGain)
+    {
+        SetCurrentArmor(currentArmor + armorGain);
+    }
+
     public void RecoverEnergy(float energyGain)
     {
         SetCurrentEnergy(currentEnergy + energyGain);
@@ -149,7 +182,7 @@ public class CharacterStats : MonoBehaviour
         ChangeColors(hurtColor);
         yield return new WaitForSeconds(time);
         ChangeColors(Color.white, true);
-
+        isHurt = false;
     }
 
     IEnumerator Stun(float time)
@@ -172,6 +205,7 @@ public class CharacterStats : MonoBehaviour
         // This method is meant to be overwritten
         // TODO: Items must be droped here
         Debug.Log(transform.name + " died.");
+        isHurt = false;
         isDead = true;
         LargeBleed();
     }

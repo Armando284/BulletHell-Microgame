@@ -101,6 +101,10 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Restart");
         SceneManager.LoadScene(SceneManager.GetSceneByBuildIndex(0).name);
+        if (isPaused)
+        {
+            ToggleGamePause();
+        }
     }
 
     public void ToggleGamePause()

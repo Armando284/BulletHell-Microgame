@@ -21,7 +21,9 @@ public class PlayerController : MonoBehaviour
     public Attack attack;
 
     [SerializeField] private float restTimeTotal = 1f;
-    [SerializeField] private float restTime = 0f;
+    private float restTime = 0f;
+    [SerializeField] private float armorRecoveryTimeTotal = 1f;
+    private float armorRecoveryTime;
 
     // Start is called before the first frame update
     void Start()
@@ -49,6 +51,19 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if (!playerStats.HasMaxArmor())
+        {
+            armorRecoveryTime -= Mathf.Clamp(Time.deltaTime, 0, armorRecoveryTimeTotal);
+            if (playerStats.isHurt)
+            {
+                armorRecoveryTime = armorRecoveryTimeTotal;
+            }
+            if (armorRecoveryTime <= 0)
+            {
+                playerStats.RecoverArmor(.1f);
+                armorRecoveryTime = .3f;
+            }
+        }
     }
 
     private void FixedUpdate()

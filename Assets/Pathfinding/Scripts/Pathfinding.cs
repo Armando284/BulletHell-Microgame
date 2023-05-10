@@ -124,7 +124,11 @@ public class Pathfinding
                     }
 
                     // If node is not wall it can be an enemy spawner
-                    EnemySpawner.Instance.spawnPoints.Add(grid.GetWorldPosition(x, y) + new Vector3(grid.GetCellSize(), grid.GetCellSize()) * .5f);
+                    // First quadrant is left for the player spawn
+                    if (x > 5 || y > 5)
+                    {
+                        EnemySpawner.Instance.spawnPoints.Add(grid.GetWorldPosition(x, y) + new Vector3(grid.GetCellSize(), grid.GetCellSize()) * .5f);
+                    }
                 }
             }
         }
