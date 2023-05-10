@@ -4,19 +4,8 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    private Vector3 currentTargetPosition;
     private bool isDead = false;
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -24,21 +13,9 @@ public class EnemyController : MonoBehaviour
             return;
         if (collision.CompareTag("Player"))
         {
-            GetComponent<EnemyPathfiningMovement>().SetTargetPosition(collision.transform.position);
+            GetComponent<EnemyPathfinding>().SetTargetPosition(collision.transform.position);
             GetComponent<EnemyAttack>().target = collision.transform;
-        }
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (isDead)
-            return;
-        if (collision.CompareTag("Player"))
-        {
-            if (collision.transform.position != currentTargetPosition)
-            {
-                GetComponent<EnemyPathfiningMovement>().SetTargetPosition(collision.transform.position);
-            }
+            GetComponent<EnemyMovementAI>().target = collision.transform;
         }
     }
 
@@ -49,6 +26,7 @@ public class EnemyController : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             GetComponent<EnemyAttack>().target = null;
+            GetComponent<EnemyMovementAI>().target = null;
         }
     }
 

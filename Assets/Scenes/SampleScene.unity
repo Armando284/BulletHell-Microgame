@@ -2958,6 +2958,7 @@ MonoBehaviour:
   enemyTypes:
   - {fileID: 7283100582665280765, guid: 58079f80c7f13461795b1550e3e83e57, type: 3}
   - {fileID: 5528794271126126658, guid: 2b075d640fb3740378c6a5815e13f2bb, type: 3}
+  - {fileID: 1971197667018887061, guid: 008bb598416784e3ba76a9327305c4b2, type: 3}
   waves:
   - enemyAmmount: 0
     state: 0

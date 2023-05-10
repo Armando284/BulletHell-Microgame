@@ -245,9 +245,10 @@ GameObject:
   - component: {fileID: 6671579628908441135}
   - component: {fileID: 7283100582665280764}
   - component: {fileID: 5773328903208227118}
-  - component: {fileID: 2951939402572666809}
   - component: {fileID: 3834631357785755947}
   - component: {fileID: 2254540783816644574}
+  - component: {fileID: -5178328000152886017}
+  - component: {fileID: -2767811905029211585}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Enemy
@@ -335,19 +336,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3
---- !u!114 &2951939402572666809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7283100582665280765}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1eef3004e83974da9ac6482e76e0fd76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 20
 --- !u!114 &3834631357785755947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,7 +363,44 @@ MonoBehaviour:
   bulletType: {fileID: 6243134369527227345, guid: 0035ac5b3380c4ecfabcc0555980736c, type: 3}
   attackDistance: 30
   target: {fileID: 0}
+  canMove: 1
+  attackCooldown: 3
+  continuosShoots: 3
   shootPoint: {fileID: 5310347323831100615}
+--- !u!114 &-5178328000152886017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7283100582665280765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3942480fbe02450b9f15c386f9b6116, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  targetPosition: {x: 0, y: 0, z: 0}
+  moveTarget: {x: 0, y: 0, z: 0}
+  distance: 0
+  maxDistance: 30
+  minDistance: 20
+--- !u!114 &-2767811905029211585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7283100582665280765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eef3004e83974da9ac6482e76e0fd76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 40
+  currentPathIndex: 0
+  pathVectorList: []
+  lookingRight: 1
 --- !u!1 &7955715321726455222
 GameObject:
   m_ObjectHideFlags: 0

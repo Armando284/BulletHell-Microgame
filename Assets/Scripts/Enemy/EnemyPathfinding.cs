@@ -4,34 +4,33 @@ using UnityEngine;
 using CodeMonkey.Utils;
 using CodeMonkey;
 
-public class EnemyPathfiningMovement : MonoBehaviour
+public class EnemyPathfinding : MonoBehaviour
 {
-    [SerializeField] private float speed = 40f;
+    public float speed = 40f;
 
-    private int currentPathIndex;
-    private List<Vector3> pathVectorList;
-    private bool lookingRight = true;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
+    public int currentPathIndex;
+    public List<Vector3> pathVectorList;
+    public bool lookingRight = true;
 
     // Update is called once per frame
     void Update()
     {
         HandleMovement();
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            SetTargetPosition(UtilsClass.GetMouseWorldPosition());
-        }
+        // HACK: Test pathfinding
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    SetTargetPosition(UtilsClass.GetMouseWorldPosition());
+        //}
     }
 
     private void HandleMovement()
     {
-        if (pathVectorList != null)
+        if (!GetComponent<EnemyAttack>().canMove)
+            return;
+
+        if (pathVectorList != null && pathVectorList.Count > 0
+            )
         {
             Vector3 targetPosition = pathVectorList[currentPathIndex];
             if (Vector3.Distance(transform.position, targetPosition) > 1f)
@@ -56,7 +55,7 @@ public class EnemyPathfiningMovement : MonoBehaviour
         }
     }
 
-    private void StopMoving()
+    public void StopMoving()
     {
         pathVectorList = null;
     }
@@ -77,7 +76,7 @@ public class EnemyPathfiningMovement : MonoBehaviour
         }
     }
 
-    private void Flip()
+    public void Flip()
     {
         lookingRight = !lookingRight;
         transform.Rotate(0, 180, 0);

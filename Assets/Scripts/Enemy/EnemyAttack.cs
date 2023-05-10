@@ -8,12 +8,10 @@ public class EnemyAttack : MonoBehaviour
     public GameObject bulletType;
     public float attackDistance;
     public Transform target;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
+    public bool canMove = true; // TODO: pass this to enemyStats
+    public float attackCooldown = .3f;
+    [Range(1, 10)] public int continuosShoots = 1;
+    public float shootingRate = .3f;
 
     // Update is called once per frame
     void Update()
@@ -31,7 +29,8 @@ public class EnemyAttack : MonoBehaviour
     public virtual void Attack()
     {
         canAttack = false;
-        StartCoroutine(WaitToAttack(.3f));
+        canMove = false;
+        StartCoroutine(WaitToAttack(attackCooldown));
     }
 
     IEnumerator WaitToAttack(float delay)

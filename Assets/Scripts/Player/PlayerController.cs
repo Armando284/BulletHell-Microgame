@@ -48,11 +48,11 @@ public class PlayerController : MonoBehaviour
         movement = moveVector;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            collision.gameObject.GetComponent<EnemyController>().KillEnemy();
-        }
-    }
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Enemy"))
+    //    {
+    //        collision.gameObject.GetComponent<EnemyController>().KillEnemy();
+    //    }
+    //}
 }

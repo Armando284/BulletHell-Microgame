@@ -28,6 +28,12 @@ public class Attack : MonoBehaviour
         animator = PlayerController.Instance.animator;
     }
 
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+            MainAttack();
+    }
+
     private bool HasEnergy(float spence) => playerStats.currentEnergy >= spence;
 
     public void MainAttack()
@@ -40,22 +46,26 @@ public class Attack : MonoBehaviour
 
         playerStats.SpendEnergy(mainAttack.energyCost);
         mainAttack.canAttack = false;
-        animator.SetBool("IsAttacking", true);
-        animator.SetTrigger("Attack");
-        animator.SetFloat("AttackCombo", 0f);
-
+        if (animator != null)
+        {
+            animator.SetBool("IsAttacking", true);
+            animator.SetTrigger("Attack");
+            animator.SetFloat("AttackCombo", 0f);
+        }
+        Bite();
         StartCoroutine(AttackCooldown());
     }
 
     IEnumerator AttackCooldown()
     {
+
         yield return new WaitForSeconds(0.3f);
         mainAttack.canAttack = true;
     }
 
-    public void DoDashDamage()
+    public void Bite()
     {
-        Debug.Log("DoDashDamage");
+        Debug.Log("Bite");
 
         DoDamage(mainAttack.damageArea, mainAttack.damageMult);
     }
