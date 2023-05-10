@@ -10,7 +10,10 @@ public class StraightAttack : EnemyAttack
     {
         base.Attack();
         GameObject bullet = Instantiate<GameObject>(bulletType, shootPoint.position, shootPoint.rotation);
-        bullet.GetComponent<Bullet>().direction = (target.position - shootPoint.position).normalized;
+        // The direction must be between the enemy and the player
+        // instead of between the shootpoint and the player
+        // to add an error margin so the game is not impossible
+        bullet.GetComponent<Bullet>().direction = (target.position - transform.position).normalized;
         bullet.GetComponent<Bullet>().ownerTag = gameObject.tag;
     }
 }

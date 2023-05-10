@@ -21,12 +21,12 @@ public class HealthBar : PanelUI
         if (health < slider.value) // Hit
         {
             // Play wound animation
-            StartCoroutine(ColorEffect(.3f, Color.red));
+            StartCoroutine(ColorEffect(.1f, Color.white));
         }
         else // Cure
         {
             // Play cure animation
-            StartCoroutine(ColorEffect(.3f, Color.green));
+            StartCoroutine(ColorEffect(.1f, Color.green));
         }
 
         slider.value = health;
