@@ -18,6 +18,10 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     public Animator animator;
     public PlayerStats playerStats;
+    public Attack attack;
+
+    [SerializeField] private float restTimeTotal = 1f;
+    [SerializeField] private float restTime = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -25,11 +29,26 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
         playerStats = GetComponent<PlayerStats>();
+        attack = GetComponent<Attack>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!playerStats.HasMaxEnergy())
+        {
+            restTime -= Mathf.Clamp(Time.deltaTime, 0, restTimeTotal);
+            if (attack.IsAttacking())
+            {
+                restTime = restTimeTotal;
+            }
+            if (restTime <= 0)
+            {
+                playerStats.RecoverEnergy(.1f);
+                restTime = .3f;
+            }
+        }
+
     }
 
     private void FixedUpdate()
@@ -47,12 +66,4 @@ public class PlayerController : MonoBehaviour
             return;
         movement = moveVector;
     }
-
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Enemy"))
-    //    {
-    //        collision.gameObject.GetComponent<EnemyController>().KillEnemy();
-    //    }
-    //}
 }

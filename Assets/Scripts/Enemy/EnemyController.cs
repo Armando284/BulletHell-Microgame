@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    private bool isDead = false;
+    public EnemyStats stats;
 
+    private void Start()
+    {
+        stats = GetComponent<EnemyStats>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isDead)
+        if (stats.isDead)
             return;
         if (collision.CompareTag("Player"))
         {
@@ -21,25 +25,12 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (isDead)
+        if (stats.isDead)
             return;
         if (collision.CompareTag("Player"))
         {
             GetComponent<EnemyAttack>().target = null;
             GetComponent<EnemyMovementAI>().target = null;
         }
-    }
-
-    public void KillEnemy()
-    {
-        isDead = true;
-        StartCoroutine(Die(.3f));
-    }
-
-    IEnumerator Die(float delay)
-    {
-        EnemySpawner.Instance.KillEnemy(gameObject);
-        yield return new WaitForSeconds(delay);
-        Destroy(gameObject);
     }
 }

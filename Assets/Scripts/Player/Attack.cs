@@ -34,6 +34,14 @@ public class Attack : MonoBehaviour
             MainAttack();
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackCheck.position, mainAttack.damageArea);
+    }
+
+    public bool IsAttacking() => !mainAttack.canAttack;
+
     private bool HasEnergy(float spence) => playerStats.currentEnergy >= spence;
 
     public void MainAttack()

@@ -16,6 +16,7 @@ public class CharacterStats : MonoBehaviour
     public Stat armor;
 
     [Space]
+    public bool isDead = false;
     public bool isInvincible = false;
     public float invincibleOnHitTime = 1f;
     public bool canMove = true;
@@ -171,6 +172,7 @@ public class CharacterStats : MonoBehaviour
         // This method is meant to be overwritten
         // TODO: Items must be droped here
         Debug.Log(transform.name + " died.");
+        isDead = true;
         LargeBleed();
     }
 
