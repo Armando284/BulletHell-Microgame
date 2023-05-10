@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour
     public float speedBase = 50f;
     [SerializeField] float speed = 1f;
     [SerializeField] private AnimationCurve speedCurve;
-    public GameObject owner;
+    public string ownerTag;
     private float spawnTime;
 
     private void Start()
@@ -33,17 +33,12 @@ public class Bullet : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag(ownerTag))
+            return;
+
         if (collision.gameObject.CompareTag("Player"))
         {
-            //PlayerController.Instance.playerStats.ApplyDamage(new DamageData(2f, transform.position, owner));
-            Debug.Log("GAME OVER!");
-            StartCoroutine(DestroyBullet(.1f));
-            return;
-        }
-
-        if (owner != null && collision.gameObject != owner && collision.gameObject.CompareTag("Enemy"))
-        {
-            //collision.gameObject.SendMessage("ApplyDamage", new DamageData(Mathf.Sign(direction.x) * 2f, transform.position, owner));
+            PlayerController.Instance.playerStats.ApplyDamage(new DamageData(2f, transform.position));
             StartCoroutine(DestroyBullet(.1f));
             return;
         }

@@ -10,7 +10,7 @@ public class StraightAttack : EnemyAttack
     {
         base.Attack();
         GameObject bullet = Instantiate<GameObject>(bulletType, shootPoint.position, shootPoint.rotation);
-        bullet.GetComponent<Bullet>().direction = (target.position - transform.position).normalized;
-        bullet.GetComponent<Bullet>().owner = gameObject;
+        bullet.GetComponent<Bullet>().direction = (target.position - shootPoint.position).normalized;
+        bullet.GetComponent<Bullet>().ownerTag = gameObject.tag;
     }
 }

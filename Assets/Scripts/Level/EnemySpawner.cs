@@ -43,9 +43,11 @@ public class EnemySpawner : MonoBehaviour
                 {
                     StartCoroutine(SpawnWave(3f));
                 }
-                else
+                else if (!GameManager.Instance.gameEnded)
                 {
                     Debug.Log("Victory!");
+                    GameManager.Instance.gameEnded = true;
+                    HUDManager.Instance.gameEnd.Victory();
                 }
             }
         }

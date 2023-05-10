@@ -21,7 +21,6 @@ public class EnemyAttack : MonoBehaviour
         if (target != null)
         {
             float distance = Vector3.Distance(transform.position, target.position);
-            Debug.Log("Distance: " + distance);
             if (distance <= attackDistance && canAttack)
             {
                 Attack();
@@ -32,7 +31,6 @@ public class EnemyAttack : MonoBehaviour
     public virtual void Attack()
     {
         canAttack = false;
-        Debug.Log(name + " attack!");
         StartCoroutine(WaitToAttack(.3f));
     }
 
