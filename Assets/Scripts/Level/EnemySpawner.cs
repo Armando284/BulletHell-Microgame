@@ -47,7 +47,8 @@ public class EnemySpawner : MonoBehaviour
                 {
                     Debug.Log("Victory!");
                     GameManager.Instance.gameEnded = true;
-                    HUDManager.Instance.gameEnd.Victory();
+                    SceneExit.Instance.Activate();
+                    //HUDManager.Instance.gameEnd.Victory();
                 }
             }
         }

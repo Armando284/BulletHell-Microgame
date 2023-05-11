@@ -27,6 +27,9 @@ public class Pathfinding
     private List<PathNode> openList;
     private List<PathNode> closedList;
 
+    private bool hasOneEntry = false;
+    private bool hasOneExit = false;
+
     public Pathfinding(int width, int height, Vector3 position)
     {
         Instance = this;
@@ -109,6 +112,11 @@ public class Pathfinding
                     node.SetIsWalkable(false);
                     node.SetSpawn(EnvironmentNodeType.Wall);
                 }
+                else if (x == 1 && y == 1 && !hasOneEntry) // make shure to spawn entry at the right place
+                {
+                    hasOneEntry = true;
+                    node.SetSpawn(EnvironmentNodeType.SceneEntry);
+                }
                 else
                 {
                     FloorNode current = MapCreator.Instance.floorNodes.Find((FloorNode obj) => obj.type == randomType);
@@ -116,10 +124,28 @@ public class Pathfinding
                     if (current.environmentTypes.Count > 0)
                     {
                         float spawnChance = Random.Range(0f, 1f);
-                        if (spawnChance <= .4f)
+                        // Spawning scene exit has bigger posibilities than other nodes,
+                        // if it gets to the last cell without spawning then forcibly spawns
+                        // only spawn once
+                        if (spawnChance > .3f)
                         {
-                            int spawnType = Mathf.FloorToInt(Random.Range(0f, current.environmentTypes.Count));
-                            node.SetSpawn(current.environmentTypes[spawnType]);
+                            if ((x > grid.GetWidth() / 2 && y > grid.GetHeight() / 2 && !hasOneExit) || (x == grid.GetWidth() - 1 && y == grid.GetHeight() - 1 && !hasOneExit))
+                            {
+                                hasOneExit = true;
+                                node.SetSpawn(EnvironmentNodeType.SceneExit);
+
+                            }
+                        }
+                        else
+                        {
+                            EnvironmentNodeType type;
+                            do
+                            {
+                                int spawnType = Mathf.FloorToInt(Random.Range(0f, current.environmentTypes.Count));
+                                type = current.environmentTypes[spawnType];
+                            } while (type == EnvironmentNodeType.SceneEntry || type == EnvironmentNodeType.SceneExit); // no other entry or exit
+
+                            node.SetSpawn(type);
                         }
                     }
 

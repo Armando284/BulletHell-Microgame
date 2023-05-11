@@ -16,8 +16,6 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject[] objectsToKeep;
-    private GameObject[] sceneExits;
-    private EntryName playerSceneEntryPoint = EntryName.None;
     private PlayerController playerController;
 
     public bool gameEnded = false;
@@ -41,18 +39,24 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             ToggleGamePause();
         }
     }
 
-    public void SceneChange(string scene, EntryName entryPoint = EntryName.None)
+    public void GoNextScene()
+    {
+        SceneChange(SceneManager.GetSceneByBuildIndex(SceneManager.GetActiveScene().buildIndex + 1).name);
+    }
+
+    public bool IsLastScene() => SceneManager.GetActiveScene().buildIndex == SceneManager.sceneCountInBuildSettings - 1;
+
+    public void SceneChange(string scene)
     {
         //levelChanger.FadeOut();
         //SavePlayerData();
         player.SetActive(false);
-        playerSceneEntryPoint = entryPoint;
         SceneManager.sceneLoaded += OnLevelLoaded;
         float animationDuration = 1f;
         StartCoroutine(SceneChangeAfterDelay(scene, animationDuration));
@@ -66,30 +70,11 @@ public class GameManager : MonoBehaviour
 
     void OnLevelLoaded(Scene scene, LoadSceneMode mode)
     {
-        //levelChanger.FadeIn();
-        if (playerSceneEntryPoint == EntryName.None)
-            return;
-
-        Vector2 playerPosition = Vector2.zero;
-        sceneExits = GameObject.FindGameObjectsWithTag("SceneEntry");
-        if (sceneExits != null && sceneExits.Length > 0)
-        {
-            foreach (GameObject exit in sceneExits)
-            {
-                if (exit.GetComponent<SceneEntry>().entryName == playerSceneEntryPoint)
-                    playerPosition = exit.GetComponent<SceneEntry>().safeSide.transform.position;
-            }
-        }
-        player.transform.position = playerPosition;
+        player.transform.position = new Vector3(25, 25);
         player.SetActive(true);
         //if (playerController.playerStats.health.CurrentValue <= 0)
         //playerController.RespawnPlayer(); // If health is 0 it's because it died and needs to reset values
         SceneManager.sceneLoaded -= OnLevelLoaded;
-    }
-
-    public void PauseGame()
-    {
-
     }
 
     public void QuitGame()

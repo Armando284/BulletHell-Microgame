@@ -65,4 +65,4 @@ public class MapCreator : MonoBehaviour
 
 public enum FloorNodeType { Grass, Sand, Water, Forest }
 
-public enum EnvironmentNodeType { None, Wall, Tree, BigTree }
+public enum EnvironmentNodeType { None, Wall, Tree, BigTree, SceneEntry, SceneExit }
