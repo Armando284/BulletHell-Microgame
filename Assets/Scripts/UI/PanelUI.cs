@@ -7,6 +7,7 @@ public class PanelUI : MonoBehaviour
     [SerializeField] private GameObject gfxPanel;
     [SerializeField] private PanelUIName panelUIName;
     public bool isPermanent = false;
+    private bool isVisible = true;
 
     // Callback which is triggered when an panel is opened.
     public delegate void OnPanelOpened();
@@ -25,6 +26,7 @@ public class PanelUI : MonoBehaviour
         if (onPanelOpenedCallback != null)
             onPanelOpenedCallback.Invoke();
 
+        isVisible = true;
         gfxPanel.SetActive(true);
     }
 
@@ -34,6 +36,18 @@ public class PanelUI : MonoBehaviour
             return;
 
         ClosePanel();
+    }
+
+    public void TogglePanel()
+    {
+        if (isVisible)
+        {
+            HidePanel();
+        }
+        else
+        {
+            ShowPanel();
+        }
     }
 
     public void ForceHidePanel()
@@ -46,8 +60,9 @@ public class PanelUI : MonoBehaviour
 
     private void ClosePanel()
     {
+        isVisible = false;
         gfxPanel.SetActive(false);
     }
 }
 
-public enum PanelUIName { HealthBarUI, EnergyBarUI, InventoryUI, DialogUI, LevelChangerUI, PauseUI, RewardUI }
+public enum PanelUIName { HealthBar, Armorbar, EnergyBar, Pause, GameEnd, Minimap, Dialog, LevelChanger }

@@ -19,16 +19,28 @@ public class HUDManager : MonoBehaviour
     public HealthBar healthBar;
     public EnergyBar energyBar;
     public PauseMenu pauseMenu;
+    public Minimap minimap;
 
-    // Start is called before the first frame update
-    void Start()
+    private PanelUI[] panels;
+
+    private void Start()
     {
+        panels = GetComponentsInChildren<PanelUI>();
+        if (panels.Length <= 0)
+            return;
 
+        foreach (PanelUI panel in panels)
+        {
+            panel.onPanelOpenedCallback += CleanOpenPanels;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void CleanOpenPanels()
     {
-
+        foreach (PanelUI panel in panels)
+        {
+            panel.HidePanel();
+        }
     }
+
 }
