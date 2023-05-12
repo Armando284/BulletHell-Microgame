@@ -14,6 +14,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using CodeMonkey.Utils;
 
 public class PathNode
 {
@@ -50,6 +51,8 @@ public class PathNode
     {
         this.isWalkable = isWalkable;
         grid.TriggerGridObjectChanged(x, y);
+        Vector3 position = grid.GetWorldPosition(x, y) + Vector3.one * 5f;
+        UtilsClass.CreateWorldText("F", null, position, 20, Color.red, TextAnchor.MiddleCenter);
     }
 
     public override string ToString()

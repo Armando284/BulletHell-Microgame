@@ -35,6 +35,8 @@ public class Pathfinding
         Instance = this;
         grid = new Grid<PathNode>(width, height, 10f, position, (Grid<PathNode> g, int x, int y) => new PathNode(g, x, y));
 
+        int spawnObjectsCount = 0;
+
         #region LevelCreation
         for (int x = 0; x < grid.GetWidth(); x++)
         {
@@ -127,7 +129,7 @@ public class Pathfinding
                         // Spawning scene exit has bigger posibilities than other nodes,
                         // if it gets to the last cell without spawning then forcibly spawns
                         // only spawn once
-                        if (spawnChance > .3f)
+                        if (spawnChance > .1f)
                         {
                             if ((x > grid.GetWidth() / 2 && y > grid.GetHeight() / 2 && !hasOneExit) || (x == grid.GetWidth() - 1 && y == grid.GetHeight() - 1 && !hasOneExit))
                             {
@@ -136,15 +138,18 @@ public class Pathfinding
 
                             }
                         }
-                        else
+                        else if (spawnObjectsCount < width * 2)
                         {
                             EnvironmentNodeType type;
                             do
                             {
-                                int spawnType = Mathf.FloorToInt(Random.Range(0f, current.environmentTypes.Count));
+                                int spawnType = Mathf.FloorToInt(Random.Range(0f, current.environmentTypes.Count - 1));
                                 type = current.environmentTypes[spawnType];
                             } while (type == EnvironmentNodeType.SceneEntry || type == EnvironmentNodeType.SceneExit); // no other entry or exit
 
+                            if (type == EnvironmentNodeType.Chest || type == EnvironmentNodeType.Rock)
+                                node.SetIsWalkable(false);
+                            spawnObjectsCount++;
                             node.SetSpawn(type);
                         }
                     }

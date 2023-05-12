@@ -23,6 +23,7 @@ public class Testing : MonoBehaviour
     //[SerializeField] private PathfindingVisual pathfindingVisual;
     //[SerializeField] private CharacterPathfindingMovementHandler characterPathfinding;
     private Pathfinding pathfinding;
+    [SerializeField] private LayerMask obstacleLayers;
 
     private void Start()
     {
@@ -66,6 +67,24 @@ public class Testing : MonoBehaviour
         //    Vector3 mouseWorldPosition = UtilsClass.GetMouseWorldPosition();
         //    pathfinding.GetGrid().GetXY(mouseWorldPosition, out int x, out int y);
         //    pathfinding.GetNode(x, y).SetIsWalkable(!pathfinding.GetNode(x, y).isWalkable);
+        //}
+
+        //for (int x = 0; x < pathfinding.GetGrid().GetWidth(); x++)
+        //{
+        //    for (int y = 0; y < pathfinding.GetGrid().GetHeight(); y++)
+        //    {
+        //        bool isWalkable = true;
+        //        Vector3 position = pathfinding.GetGrid().GetWorldPosition(x, y) + Vector3.one * 5f;
+        //        Debug.Log("pos: " + position);
+        //        Collider2D[] obstacles = Physics2D.OverlapCircleAll(position, 1f, obstacleLayers);
+        //        if (obstacles.Length > 0)
+        //        {
+        //            isWalkable = false;
+        //            UtilsClass.CreateWorldText("F", null, position, 20, Color.red, TextAnchor.MiddleCenter);
+        //        }
+
+        //        pathfinding.GetNode(x, y).isWalkable = isWalkable;
+        //    }
         //}
     }
 

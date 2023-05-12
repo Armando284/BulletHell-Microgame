@@ -27,6 +27,7 @@ public class CircleAttack : EnemyAttack
             }
             yield return new WaitForSeconds(shootingRate);
         }
+        canMove = true;
     }
 
     private void OnDrawGizmos()

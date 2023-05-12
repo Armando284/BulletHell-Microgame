@@ -16,10 +16,10 @@ TagManager:
   - Enemy
   - Player
   - Item
-  - Destructible
+  - Obstacle
   - EnemyBullet
   - MapIcon
-  - MapAndWorld
+  - 
   - 
   - 
   - 

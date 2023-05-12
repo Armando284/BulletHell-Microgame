@@ -1186,15 +1186,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 341622860}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 25, y: 25, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1796202088}
   - {fileID: 1614182179}
-  m_Father: {fileID: 2133248807}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &341622862
 CapsuleCollider2D:
@@ -1287,7 +1287,7 @@ MonoBehaviour:
     cooldown: 1
   attackLayers:
     serializedVersion: 2
-    m_Bits: 576
+    m_Bits: 64
 --- !u!114 &341622867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3578,15 +3578,15 @@ MonoBehaviour:
     node: {fileID: 7179802399990394454, guid: ec3f74b6ba48c4bf384d54c1ea773386, type: 3}
   - type: 1
     neighboorTypes: 020000000100000000000000
-    environmentTypes: 
+    environmentTypes: 07000000
     node: {fileID: 1451173086356896878, guid: 2af98c95c9a1e4180b7d290feb270b4e, type: 3}
   - type: 0
     neighboorTypes: 010000000000000003000000
-    environmentTypes: 02000000
+    environmentTypes: 020000000600000007000000
     node: {fileID: 336587145156452462, guid: 9da192eeceaa14b0faa4a2dbb9400d6b, type: 3}
   - type: 3
     neighboorTypes: 0000000003000000
-    environmentTypes: 0200000003000000
+    environmentTypes: 02000000030000000600000007000000
     node: {fileID: 274003164054272244, guid: d9d7084ccce3d4308bcafdbbd1245fa5, type: 3}
   spawnNodes:
   - type: 1
@@ -3599,6 +3599,10 @@ MonoBehaviour:
     node: {fileID: 868383623289589346, guid: b1a621efe3642429881f75e786cd0c99, type: 3}
   - type: 5
     node: {fileID: 8532633303665552155, guid: e3dc7b7e572e54f31829700ee67f280d, type: 3}
+  - type: 6
+    node: {fileID: 8665721694445591076, guid: a9f0c605dcddf42dd9579641c8c55066, type: 3}
+  - type: 7
+    node: {fileID: 9061823240898825594, guid: b20015aa459654694abb48e64fc2d2ce, type: 3}
   ground: {fileID: 927083318}
   interactable: {fileID: 2133248807}
 --- !u!114 &2106087961
@@ -3788,6 +3792,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 168753308}
     - target: {fileID: 220460115366269615, guid: 0b4496a492b0f440cae94c6e578431c2, type: 3}
+      propertyPath: obstacleLayers.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 220460115366269615, guid: 0b4496a492b0f440cae94c6e578431c2, type: 3}
       propertyPath: pathfindingDebugStepVisual
       value: 
       objectReference: {fileID: 313803167}
@@ -3821,8 +3829,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 341622861}
+  m_Children: []
   m_Father: {fileID: 2106087959}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
